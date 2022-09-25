@@ -8,5 +8,5 @@ import com.casestudy.entities.Places;
 public interface PlacesRepository extends MongoRepository<Places,String>{
 	
 	
-
+     boolean existsByLongtitudeAndLatitudeAndRadius(Double longtitude,Double latitude, Short radius);
 }
