@@ -9,4 +9,6 @@ public interface PlacesRepository extends MongoRepository<Places,String>{
 	
 	
      boolean existsByLongtitudeAndLatitudeAndRadius(Double longtitude,Double latitude, Short radius);
+     
+     Places findByLatitudeAndLongtitudeAndRadius(Double latitude,Double longtitude, Short radius);
 }

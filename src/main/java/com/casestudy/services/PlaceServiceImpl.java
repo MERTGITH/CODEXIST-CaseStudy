@@ -26,6 +26,13 @@ public class PlaceServiceImpl implements PlaceService
 	
 		return placesRepo.existsByLongtitudeAndLatitudeAndRadius(place.getLongtitude(),place.getLatitude(),place.getRadius());
 	}
+
+	@Override
+	public Places findByLatitudeAndLongtitudeAndRadius(Double latitude, Double longtitude, Short radius) {
+		
+		return placesRepo.findByLatitudeAndLongtitudeAndRadius(latitude, longtitude, radius);
+		
+	}
 	
 
 

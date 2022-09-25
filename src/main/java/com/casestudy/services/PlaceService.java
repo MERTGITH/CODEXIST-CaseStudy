@@ -12,6 +12,8 @@ public interface PlaceService {
 
 	boolean isPlaceExistInDB(Places place);
 	
+	Places findByLatitudeAndLongtitudeAndRadius(Double latitude,Double longtitude,Short radius);
+	
 	
 
 }
