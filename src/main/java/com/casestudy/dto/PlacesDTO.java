@@ -13,4 +13,5 @@ public class PlacesDTO {
 	
 	private Short radius;
 	
+	private String response;
 }

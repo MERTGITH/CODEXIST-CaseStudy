@@ -8,7 +8,7 @@ import com.casestudy.entities.Places;
 
 public interface PlaceService {
 	
-	Places savePlace(Places place);
+	void savePlace(Places place);
 
 	boolean isPlaceExistInDB(Places place);
 	
