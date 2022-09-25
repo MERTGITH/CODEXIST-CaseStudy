@@ -41,8 +41,9 @@ public class MainController {
     		if(!isPlaceExistInDB(place)) 
     		{
     			
-    		  savePlace(place);
-    		  return getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius());
+    			place.setResponse(getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius()));  		
+    			savePlace(place);
+    		  return ResponseEntity.status(HttpStatus.OK).body(getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius()));
     		  
     		}    		    		
     	     	
@@ -57,7 +58,14 @@ public class MainController {
     				 return ResponseEntity.status(HttpStatus.OK).body(findPlace.getResponse());
     				
     			}
-    			return getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius());   			
+    			
+    			else 
+    			{
+    				
+    				 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unexpected Error");
+    				
+    			}
+    			  			
     		    
     		}
 
@@ -79,10 +87,11 @@ public class MainController {
     
     //Get response from Google Places API
    
-    public ResponseEntity<?> getGoogleAPIresponse(Double longtitude,Double latitude,Short radius) {
+    public String getGoogleAPIresponse(Double longtitude,Double latitude,Short radius) {
 	  
+    	String response=restTemplate.getForObject("https://jsonplaceholder.typicode.com/posts",String.class);
     	
-    	 return ResponseEntity.status(HttpStatus.OK).body("Test");
+    	 return response;
     	
     }
     
