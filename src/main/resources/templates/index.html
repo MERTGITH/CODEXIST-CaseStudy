@@ -17,7 +17,7 @@ border: 2px solid #4CAF50;
 
 }
 </style>
-<title>Insert title here</title>
+<title>CODEXIST- Case Study</title>
 </head>
 
 <body>
@@ -62,8 +62,9 @@ $(document).ready(function() {
 
 
 //Form validation
-$(document).ready(function() {
+
 $("#location").validate({
+
 	rules: {
 		latitude:{
 		required: true,
@@ -89,17 +90,21 @@ $("#location").validate({
 			
 				},
 	},
-		
+
 	errorClass: "error fail-alert",
 	validClass: "valid success-alert",
 });
-});
+
 
 
 
 //AJAX nearbyPlaces data request
 $('#location').on("submit",function(event) {
 	    event.preventDefault();
+	    if(!$(this).valid()) {
+           return false;
+        }
+	  
 	    var form = $(this);
    
    $.ajax({
