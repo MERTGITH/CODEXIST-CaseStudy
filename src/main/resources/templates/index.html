@@ -3,21 +3,89 @@
    xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="UTF-8">
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<style>
+label.error.fail-alert {
+
+color: red;
+}
+input.valid.success-alert {
+border: 2px solid #4CAF50;
+
+}
+</style>
 <title>Insert title here</title>
 </head>
-<style>
 
-</style>
 <body>
-<div id="map"></div>
+<h2 style="width:30%;margin:auto;margin-top:75px;">Please Provide Location Values</h2>
+<form style="width:30%;margin:auto;margin-top:45px;" id="location">
+  <div class="form-group m-1">
+    <label for="latitude"><span style="color:red;">*</span>Latitude</label>
+    <input type="text" class="form-control" id="latitude" name="latitude"aria-describedby="emailHelp" placeholder="Please enter latitude">
+    
+  </div>
+  <div class="form-group m-1">
+    <label for="longtitude"><span style="color:red;">*</span>Longtitude</label>
+    <input type="text" class="form-control" id="longtitude" name="longtitude"  placeholder="Please enter longtitude" required>
+  </div>
+    <div class="form-group m-1">
+    <label for="radius">Radius</label>
+    <input type="text" class="form-control" id="radius" name="radius" placeholder="Please enter radius (default value 500)">
+  </div>
 
-
+  <button type="submit" class="btn btn-primary m-1">Submit</button>
+</form>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
 <script>
 
 $(document).ready(function() {
     
 });
+
+
+
+//Form validation
+$(document).ready(function() {
+$("#location").validate({
+	rules: {
+		latitude:{
+		required: true,
+		number: true,
+		},
+		longtitude:{
+		required: true,
+		number: true,
+	}
+	},
+	
+	messages:{
+		
+		latitude: {
+			required: "Latitude value is required",
+			number: "Please enter valid number value"
+		
+			},
+			
+			longtitude: {
+				required: "Longtitude value is required",
+				number: "Please enter valid number value"
+			
+				},
+	},
+		
+	errorClass: "error fail-alert",
+	validClass: "valid success-alert",
+});
+});
+
+
+
 
 
 </script>

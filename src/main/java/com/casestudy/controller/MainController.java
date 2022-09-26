@@ -12,8 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,9 +21,11 @@ import com.casestudy.entities.Places;
 import com.casestudy.repositories.PlacesRepository;
 import com.casestudy.services.PlaceService;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @RestController
-
+@Slf4j
 public class MainController {
 
 	@Autowired
@@ -41,9 +42,11 @@ public class MainController {
     		if(!isPlaceExistInDB(place)) 
     		{
     			
-    			place.setResponse(getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius()));  		
-    			savePlace(place);
-    		  return ResponseEntity.status(HttpStatus.OK).body(getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius()));
+    			String response=getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius());
+    			place.setResponse(response);  		
+    			savePlace(place);    		
+    			log.info("A place with Latitude value"+place.getLatitude()+" and Longtitude value" + place.getLongtitude()+ " saved to database");
+    			return ResponseEntity.status(HttpStatus.OK).body(response);
     		  
     		}    		    		
     	     	
@@ -61,7 +64,7 @@ public class MainController {
     			
     			else 
     			{
-    				
+    				log.error("A place with Latitude value"+place.getLatitude()+" and Longtitude value" + place.getLongtitude()+ " is not found in database");
     				 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unexpected Error");
     				
     			}
