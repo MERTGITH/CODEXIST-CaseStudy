@@ -37,15 +37,26 @@ border: 2px solid #4CAF50;
     <input type="text" class="form-control" id="radius" name="radius" placeholder="Please enter radius (default value 500)">
   </div>
 
-  <button type="submit" class="btn btn-primary m-1">Submit</button>
+  <button type="submit" class="btn btn-primary m-1 spinner"><span id="spinner" class="" role="status" aria-hidden="true"></span> Submit</button>
+  
+  <p id="alert" class="text-success"></p>
 </form>
+<p id="response" class="mt-3 container"></p>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
 <script>
 
 $(document).ready(function() {
-    
+	$(document).ajaxStart(function(){
+		
+		 
+		  $("#spinner").addClass('spinner-border spinner-border-sm');
+		}) .ajaxStop(function () {
+	
+			 $("#spinner").removeClass('spinner-border spinner-border-sm');
+			
+	});
 });
 
 
@@ -86,6 +97,25 @@ $("#location").validate({
 
 
 
+//AJAX nearbyPlaces data request
+$('#location').on("submit",function(event) {
+	    event.preventDefault();
+	    var form = $(this);
+   
+   $.ajax({
+		url:"/nearbyPlaces",
+		method:"GET",
+		data: form.serialize()
+		 
+   		}).done(function(data) {
+	      $('#alert').text("Data succesfully retrieved ( Data coming from test APIs )");
+	      $('#response').text(data);
+	    }).fail(function(data) {  
+			
+	    	 $('#alert').text("An error occured");
+       })
+          
+      });
 
 
 </script>

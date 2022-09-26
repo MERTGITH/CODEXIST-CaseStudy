@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class MainController {
 	PlaceService placeService;
 	
     @GetMapping(value = "/nearbyPlaces")
-    public ResponseEntity<?> getNearbyPlaces(@Valid @RequestBody Places place) {
+    public ResponseEntity<?> getNearbyPlaces(@Valid  Places place) {
     
 	
     		if(!isPlaceExistInDB(place)) 
@@ -45,7 +46,7 @@ public class MainController {
     			String response=getGoogleAPIresponse(place.getLongtitude(),place.getLatitude(),place.getRadius());
     			place.setResponse(response);  		
     			savePlace(place);    		
-    			log.info("A place with Latitude value"+place.getLatitude()+" and Longtitude value" + place.getLongtitude()+ " saved to database");
+    			log.info("A place with Latitude value "+place.getLatitude()+" and Longtitude value " + place.getLongtitude()+ " saved to database");
     			return ResponseEntity.status(HttpStatus.OK).body(response);
     		  
     		}    		    		
